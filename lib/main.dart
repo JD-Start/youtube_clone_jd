@@ -12,16 +12,20 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Youtube UI',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      debugShowCheckedModeBanner: false,
-      home: TestPage(
-        hasUnwatchedVideo: true,
-        // isLive: true,
-        isDarkMode: true,
-      ),
-    );
+        title: 'Youtube UI',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        debugShowCheckedModeBanner: false,
+        home: TestPage()
+
+        // const CustomCircleAvatar(
+        //   creatorImgPath: 'images/creators/fl0m.webp',
+        //   // hasUnwatchedStory: true,
+        //   // isDarkMode: true,
+        //   // hasUnwatchedVideo: true,
+        //   // isLive: true,
+        // ),
+        );
   }
 }

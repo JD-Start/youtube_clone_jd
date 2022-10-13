@@ -7,7 +7,7 @@ class CustomCircleAvatar extends StatefulWidget {
   final bool hasUnwatchedStory;
   final bool isDarkMode;
   const CustomCircleAvatar(
-      {this.creatorImgPath = 'images/creators/default.webp',
+      {this.creatorImgPath = 'images/resources/default.webp',
       this.hasUnwatchedStory = false,
       this.hasUnwatchedVideo = false,
       this.isDarkMode = false,
@@ -59,18 +59,22 @@ class _CustomCircleAvatarState extends State<CustomCircleAvatar> {
           clipBehavior: Clip.none,
           children: [
             Container(
-              padding: const EdgeInsets.all(3),
+              padding: widget.isLive || widget.hasUnwatchedStory
+                  ? const EdgeInsets.all(3)
+                  : null,
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
                       color: widget.isLive || widget.hasUnwatchedStory
                           ? Colors.red
                           : Colors.grey.shade400,
-                      width: 2.5)),
+                      width:
+                          widget.isLive || widget.hasUnwatchedStory ? 2.5 : 0)),
               child: CircleAvatar(
                   radius: 20,
                   backgroundImage:
-                      AssetImage(widget.creatorImgPath.toString())),
+                      // AssetImage(widget.creatorImgPath.toString())),
+                      AssetImage(widget.creatorImgPath)),
             ),
             //*: Live banner
             Positioned(
