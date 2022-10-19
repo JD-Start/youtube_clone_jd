@@ -1,0 +1,93 @@
+import 'package:flutter/material.dart';
+
+class CustomCircleAvatar_Widget extends StatefulWidget {
+  final String creatorImgPath;
+  final bool isLive;
+  final bool hasUnwatchedVideo;
+  final bool hasUnwatchedStory;
+  final bool isDarkMode;
+  const CustomCircleAvatar_Widget(
+      {this.creatorImgPath = 'images/resources/default.webp',
+      this.hasUnwatchedStory = false,
+      this.hasUnwatchedVideo = false,
+      this.isDarkMode = false,
+      this.isLive = false,
+      super.key});
+  @override
+  State<CustomCircleAvatar_Widget> createState() =>
+      _CustomCircleAvatar_WidgetState();
+}
+
+class _CustomCircleAvatar_WidgetState extends State<CustomCircleAvatar_Widget> {
+//-----
+//WIDGET: Live banner
+//-----
+
+  Widget _liveBanner() {
+    return Container(
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(5),
+          border: Border.all(
+              width: 2,
+              color: widget.isDarkMode ? Colors.black : Colors.white)),
+      child: Container(
+        padding: const EdgeInsets.symmetric(
+          horizontal: 3,
+        ),
+        decoration: BoxDecoration(
+          color: Colors.red.shade600,
+        ),
+        child: const Center(
+          child: Text(
+            'Live',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    // print(widget.creatorImgPath);
+    return Column(
+      children: [
+        Stack(
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              padding: widget.isLive || widget.hasUnwatchedStory
+                  ? const EdgeInsets.all(3)
+                  : null,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.all(
+                      color: widget.isLive || widget.hasUnwatchedStory
+                          ? Colors.red
+                          : Colors.grey.shade400,
+                      width:
+                          widget.isLive || widget.hasUnwatchedStory ? 2.5 : 0)),
+              child: CircleAvatar(
+                  radius: 20,
+                  backgroundImage:
+                      // AssetImage(widget.creatorImgPath.toString())),
+                      AssetImage(widget.creatorImgPath)),
+            ),
+            //*: Live banner
+            Positioned(
+              bottom: -3,
+              left: 8,
+              child: widget.isLive & !widget.hasUnwatchedStory
+                  ? _liveBanner()
+                  : const SizedBox.shrink(),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}

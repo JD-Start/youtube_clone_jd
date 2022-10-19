@@ -9,12 +9,6 @@ import 'package:youtube_clone_jd/pages/shorts_page.dart';
 import 'package:youtube_clone_jd/pages/subsciption_page.dart';
 import 'package:youtube_clone_jd/pages/video_page.dart';
 
-final selectedVideoProvider = StateProvider<Video?>((ref) => null);
-final selectedPageIndexProvider = StateProvider<int>((ref) => 0);
-final miniPLayerControllerProvider =
-    StateProvider.autoDispose<MiniplayerController>(
-        (ref) => MiniplayerController());
-
 class Start extends ConsumerWidget {
   Start({super.key});
 

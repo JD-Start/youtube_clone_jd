@@ -1,3 +1,12 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:miniplayer/miniplayer.dart';
+
+final selectedVideoProvider = StateProvider<Video?>((ref) => null);
+final selectedPageIndexProvider = StateProvider<int>((ref) => 0);
+final miniPLayerControllerProvider =
+    StateProvider.autoDispose<MiniplayerController>(
+        (ref) => MiniplayerController());
+
 int likedVideoConnt = 432;
 int unwacthedVideosCount = 113;
 int downloadedVideosCount = 8;
@@ -14,6 +23,7 @@ class Video {
   String thumbnailImgPath;
   String likeCount;
   String disLikeCount;
+  String commentCount;
   String creatorImgPath;
 
   Video({
@@ -22,11 +32,12 @@ class Video {
     required this.title,
     required this.timePosted,
     required this.runTime,
-    required this.disLikeCount,
-    required this.likeCount,
     required this.thumbnailImgPath,
     required this.creatorImgPath,
-    required this.numberOfViews,
+    this.disLikeCount = '0',
+    this.likeCount = '0',
+    this.commentCount = '0',
+    this.numberOfViews = '0',
   });
 }
 
@@ -74,6 +85,7 @@ class Creator {
   String creatorId;
   String creatorImgPath;
   String channelName;
+  String subscriberCount;
   bool isLive;
   bool hasUnwatchedVideo;
 
@@ -81,6 +93,7 @@ class Creator {
     required this.creatorId,
     required this.channelName,
     required this.isLive,
+    required this.subscriberCount,
     required this.hasUnwatchedVideo,
     required this.creatorImgPath,
   });
@@ -95,8 +108,9 @@ List<Video> videosDetailList = [
       runTime: '13:07',
       disLikeCount: '1.3 k',
       likeCount: '24 k',
+      commentCount: '2.6 k',
       thumbnailImgPath: 'images/creators/warowl.webp',
-      creatorImgPath: 'images/creators/fl0m.webp',
+      creatorImgPath: 'images/creators/warowl.webp',
       numberOfViews: '1.3 M'),
   Video(
       videoID: 'v2',
@@ -106,7 +120,8 @@ List<Video> videosDetailList = [
       runTime: '9:34',
       disLikeCount: '3.3 k',
       likeCount: '29 k',
-      thumbnailImgPath: 'images/creators/tfue.webp',
+      commentCount: '2.4 k',
+      thumbnailImgPath: 'images/creators/pokimane.webp',
       creatorImgPath: 'images/creators/pokimane.webp',
       numberOfViews: '3.3 M'),
   Video(
@@ -117,7 +132,8 @@ List<Video> videosDetailList = [
       runTime: '11:14',
       disLikeCount: '2.1 k',
       likeCount: '13 k',
-      thumbnailImgPath: 'images/creators/thegrefg.webp',
+      commentCount: '1.1 k',
+      thumbnailImgPath: 'images/creators/xqc-overwatch.webp',
       creatorImgPath: 'images/creators/xqc-overwatch.webp',
       numberOfViews: '1.9 M'),
   Video(
@@ -128,7 +144,8 @@ List<Video> videosDetailList = [
       runTime: '4:26',
       disLikeCount: '465',
       likeCount: '3.9 k',
-      thumbnailImgPath: 'images/creators/AuronPlay.webp',
+      commentCount: '651',
+      thumbnailImgPath: 'images/creators/fl0m.webp',
       creatorImgPath: 'images/creators/fl0m.webp',
       numberOfViews: '786 k'),
   Video(
@@ -139,7 +156,8 @@ List<Video> videosDetailList = [
       runTime: '8:36',
       disLikeCount: '534',
       likeCount: '3 k',
-      thumbnailImgPath: 'images/creators/Sodapoppin.webp',
+      commentCount: '1.2 k',
+      thumbnailImgPath: 'images/creators/Ibai.webp',
       creatorImgPath: 'images/creators/Ibai.webp',
       numberOfViews: '536 k'),
   Video(
@@ -150,7 +168,8 @@ List<Video> videosDetailList = [
       runTime: '6:34',
       disLikeCount: '987',
       likeCount: '18 k',
-      thumbnailImgPath: 'images/creators/Rubius.webp',
+      commentCount: '3.2 k',
+      thumbnailImgPath: 'images/creators/nadeking.jpg',
       creatorImgPath: 'images/creators/nadeking.jpg',
       numberOfViews: '1.4 M'),
   Video(
@@ -161,7 +180,8 @@ List<Video> videosDetailList = [
       runTime: '6:12',
       disLikeCount: '1.2 k',
       likeCount: '12 k',
-      thumbnailImgPath: 'images/creators/Ibai.webp',
+      commentCount: '2.1 k',
+      thumbnailImgPath: 'images/creators/Ninja.webp',
       creatorImgPath: 'images/creators/Ninja.webp',
       numberOfViews: '395 k'),
   Video(
@@ -173,7 +193,8 @@ List<Video> videosDetailList = [
       runTime: '4:45',
       disLikeCount: '3.3 k',
       likeCount: '24 k',
-      thumbnailImgPath: 'images/creators/nadeking.jpg',
+      commentCount: '4.2 k',
+      thumbnailImgPath: 'images/creators/shroud.webp',
       creatorImgPath: 'images/creators/shroud.webp',
       numberOfViews: '2.8 M'),
 ];
@@ -183,37 +204,37 @@ List<Story> storyDetailList = [
       storyId: 's1',
       channelName: 'Shroud',
       isAllStoriesWatched: false,
-      storyPath: 'images/creators/tfue.webp',
+      storyPath: 'images/creators/shroud.webp',
       creatorImgPath: 'images/creators/shroud.webp'),
   Story(
       storyId: 's2',
       channelName: 'Rubius',
       isAllStoriesWatched: true,
-      storyPath: 'images/creators/warowl.webp',
+      storyPath: 'images/creators/Rubius.webp',
       creatorImgPath: 'images/creators/Rubius.webp'),
   Story(
       storyId: 's3',
       channelName: 'Ninja',
       isAllStoriesWatched: false,
-      storyPath: 'images/creators/AuronPlay.webp',
+      storyPath: 'images/creators/Ninja.webp',
       creatorImgPath: 'images/creators/Ninja.webp'),
   Story(
       storyId: 's4',
       channelName: 'xqc-overwatch',
       isAllStoriesWatched: false,
-      storyPath: 'images/creators/nadeking.jpg',
+      storyPath: 'images/creators/xqc-overwatch.webp',
       creatorImgPath: 'images/creators/xqc-overwatch.webp'),
   Story(
       storyId: 's5',
       channelName: 'pokimane',
       isAllStoriesWatched: false,
-      storyPath: 'images/creators/fl0m.webp',
+      storyPath: 'images/creators/pokimane.webp',
       creatorImgPath: 'images/creators/pokimane.webp'),
   Story(
       storyId: 's6',
       channelName: 'Rubius',
       isAllStoriesWatched: false,
-      storyPath: 'images/creators/Ibai.webp',
+      storyPath: 'images/creators/Rubius.webp',
       creatorImgPath: 'images/creators/Rubius.webp'),
 ];
 
@@ -225,7 +246,7 @@ List<ShortVideo> shortVideoDetailsList = [
     likeCount: '1.3 K',
     disLikeCount: '283',
     commentCount: '342',
-    shortVideoPath: 'images/creators/fl0m.webp',
+    shortVideoPath: 'images/creators/nadeking.jpg',
     creatorImgPath: 'images/creators/nadeking.jpg',
     isSubscribed: true,
   ),
@@ -236,7 +257,7 @@ List<ShortVideo> shortVideoDetailsList = [
     likeCount: '2.2 K',
     disLikeCount: '354',
     commentCount: '642',
-    shortVideoPath: 'images/creators/Sodapoppin.webp',
+    shortVideoPath: 'images/creators/Ibai.webp',
     creatorImgPath: 'images/creators/Ibai.webp',
     isSubscribed: false,
   ),
@@ -247,7 +268,7 @@ List<ShortVideo> shortVideoDetailsList = [
     likeCount: '3.1 k',
     disLikeCount: '439',
     commentCount: '796',
-    shortVideoPath: 'images/creators/fl0m.webp',
+    shortVideoPath: 'images/creators/Ninja.webp',
     creatorImgPath: 'images/creators/Ninja.webp',
     isSubscribed: false,
   ),
@@ -258,7 +279,7 @@ List<ShortVideo> shortVideoDetailsList = [
     likeCount: '4.4 k',
     disLikeCount: '619',
     commentCount: '1.2 k',
-    shortVideoPath: 'images/creators/shroud.webp',
+    shortVideoPath: 'images/creators/pokimane.webp',
     creatorImgPath: 'images/creators/pokimane.webp',
     isSubscribed: false,
   ),
@@ -269,7 +290,7 @@ List<ShortVideo> shortVideoDetailsList = [
     likeCount: '1.3 K',
     disLikeCount: '167',
     commentCount: '349',
-    shortVideoPath: 'images/creators/thegrefg.webp',
+    shortVideoPath: 'images/creators/warowl.webp',
     creatorImgPath: 'images/creators/warowl.webp',
     isSubscribed: true,
   ),
@@ -280,7 +301,7 @@ List<ShortVideo> shortVideoDetailsList = [
     likeCount: '8.9 K',
     disLikeCount: '537',
     commentCount: '3.8 k',
-    shortVideoPath: 'images/creators/xqc-overwatch.webp',
+    shortVideoPath: 'images/creators/fl0m.webp',
     creatorImgPath: 'images/creators/fl0m.webp',
     isSubscribed: true,
   ),
@@ -291,7 +312,7 @@ List<ShortVideo> shortVideoDetailsList = [
     likeCount: '968',
     disLikeCount: '39',
     commentCount: '137',
-    shortVideoPath: 'images/creators/tfue.webp',
+    shortVideoPath: 'images/creators/AuronPlay.webp',
     creatorImgPath: 'images/creators/AuronPlay.webp',
     isSubscribed: false,
   ),
@@ -302,7 +323,7 @@ List<ShortVideo> shortVideoDetailsList = [
     likeCount: '79',
     disLikeCount: '2',
     commentCount: '6',
-    shortVideoPath: 'images/creators/pokimane.webp',
+    shortVideoPath: 'images/creators/thegrefg.webp',
     creatorImgPath: 'images/creators/thegrefg.webp',
     isSubscribed: false,
   ),
@@ -411,4 +432,12 @@ List sugegstedTopicList = [
   'Yoga',
   'Recently uploaded',
   'New to you',
+];
+
+List subscribedChannelsList = [
+  {'channelName': 'Warowl', 'subscriberCount': '1.3 M'},
+  {'channelName': 'nadeking', 'subscriberCount': '2.7 M'},
+  {'channelName': 'Ninja', 'subscriberCount': '698 k'},
+  {'channelName': 'Shroud', 'subscriberCount': '143 k'},
+  {'channelName': 'fl0m', 'subscriberCount': '1.3 M'},
 ];

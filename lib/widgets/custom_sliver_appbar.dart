@@ -34,7 +34,7 @@ class _CustomSliverAppBar_WidgetState extends State<CustomSliverAppBar_Widget> {
           onPressed: () {},
           iconSize: 40,
           icon: const CircleAvatar(
-            foregroundImage: AssetImage('images/creators/warowl.webp'),
+            foregroundImage: AssetImage('images/resources/user.jpg'),
           ),
         ),
       ],
