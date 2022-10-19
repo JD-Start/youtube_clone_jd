@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_clone_jd/data.dart';
 
-import '../widgets/playlist.dart';
+import '../widgets/playlist_widget.dart';
 
-class LibraryPage extends StatefulWidget {
-  const LibraryPage({super.key});
+class Library_Page extends StatefulWidget {
+  const Library_Page({super.key});
   @override
-  State<LibraryPage> createState() => _LibraryPageState();
+  State<Library_Page> createState() => _Library_PageState();
 }
 
-class _LibraryPageState extends State<LibraryPage> {
+class _Library_PageState extends State<Library_Page> {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -181,7 +181,7 @@ class _LibraryPageState extends State<LibraryPage> {
               ),
             ],
           ),
-          const SizedBox(height: 400, child: PlayList_Widget())
+          const SizedBox(height: 300, child: PlayList_Widget())
         ],
       ),
     );

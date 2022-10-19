@@ -1,58 +1,61 @@
 import 'package:flutter/material.dart';
 import 'package:youtube_clone_jd/start.dart';
 
-class TestPage extends StatefulWidget {
+class Test_Page extends StatefulWidget {
   final String creatorImgPath;
   bool isLive;
   bool hasUnwatchedVideo;
   bool isDarkMode;
 
-  TestPage(
+  Test_Page(
       {this.isDarkMode = false,
       this.creatorImgPath = 'images/creators/default_creator_icon.webp',
       this.hasUnwatchedVideo = false,
       this.isLive = false,
       super.key});
   @override
-  State<TestPage> createState() => _TestPageState();
+  State<Test_Page> createState() => _Test_PageState();
 }
 
-class _TestPageState extends State<TestPage> {
+class _Test_PageState extends State<Test_Page> {
   var currentTabIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: BottomNavigationBar(
-        onTap: (index) {
-          setState(() {
-            currentTabIndex = index;
-          });
-        },
-        currentIndex: currentTabIndex,
-        elevation: 12,
-        items: const [
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_rounded,
-              ),
-              label: 'Home'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.search,
-              ),
-              label: 'Search'),
-          BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person,
-              ),
-              label: 'Profile')
-        ],
-        // type: BottomNavigationBarType.shifting,
-      ),
+      // bottomNavigationBar: BottomNavigationBar(
+      //   onTap: (index) {
+      //     setState(() {
+      //       currentTabIndex = index;
+      //     });
+      //   },
+      //   currentIndex: currentTabIndex,
+      //   elevation: 12,
+      //   items: const [
+      //     BottomNavigationBarItem(
+      //         icon: Icon(
+      //           Icons.home_rounded,
+      //         ),
+      //         label: 'Home'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(
+      //           Icons.search,
+      //         ),
+      //         label: 'Search'),
+      //     BottomNavigationBarItem(
+      //         icon: Icon(
+      //           Icons.person,
+      //         ),
+      //         label: 'Profile')
+      //   ],
+      //   // type: BottomNavigationBarType.shifting,
+      // ),
       backgroundColor: Colors.grey.shade300,
       // backgroundColor: Colors.white,
-      body: const SafeArea(
+      body: SafeArea(
         child: Start(),
+        // Home_Page()
+        // VideosFromSubscriptions_Component()
+        // Start(),
         // Short_Widget(
         //     channelName: 'Warowl',
         //     caption: 'I\'m warowl and still I have no closer',

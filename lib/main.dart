@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:youtube_clone_jd/pages/test_page.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const ProviderScope(child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
@@ -14,10 +15,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
         title: 'Youtube UI',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+            brightness: Brightness.dark,
+            primarySwatch: Colors.blue,
+            bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+                selectedItemColor: Colors.white)),
         debugShowCheckedModeBanner: false,
-        home: TestPage()
+        home: Test_Page()
 
         // const CustomCircleAvatar(
         //   creatorImgPath: 'images/creators/fl0m.webp',
